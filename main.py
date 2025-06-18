@@ -954,6 +954,30 @@ async def text_handler(bot: Client, m: Message):
             if "acecwply" in url:
                 cmd = f'yt-dlp -o "{name}.%(ext)s" -f "bestvideo[height<={raw_text2}]+bestaudio" --hls-prefer-ffmpeg --no-keep-video --remux-video mkv --no-warning "{url}"'
 
+elif "classplusapp.com" in url and "drm" in url:
+    if not raw_text4 or raw_text4 == 'WORKING_TOKEN':
+        await m.reply_text("❌ Classplus DRM requires a valid token! Use /cookies to set it")
+        return
+        
+    try:
+        cc = f'🔐 Classplus DRM Video\n📝 {name}\n\n🔑 Token Used: {raw_text4[:6]}...\n\n✦𝐁𝐨𝐭 𝐌𝐚𝐝𝐞 𝐁𝐲 ✦ {CREDIT}'
+        Show = f"**⚡Decrypting Classplus DRM Video**\n🔗 {url}\n🔐 Token: {raw_text4[:6]}...\n🔄 This may take several minutes..."
+        prog = await m.reply_text(Show)
+        
+        # Download DRM content
+        path = f"./downloads/{m.chat.id}"
+        os.makedirs(path, exist_ok=True)
+        filename = await helper.download_classplus_drm(
+            url, 
+            raw_text4,
+            raw_text2,
+            path
+        )
+        
+        await prog.delete()
+        await helper.send_vid(bot, m, cc, filename, thumb, name, prog, channel_id)
+    except Exception as e:
+        await m.reply_text(f"❌ Classplus DRM Error:\n{str(e)}")
             elif "https://cpvod.testbook.com/" in url:
                 url = url.replace("https://cpvod.testbook.com/","https://media-cdn.classplusapp.com/drm/")
                 url = 'https://dragoapi.vercel.app/classplus?link=' + url

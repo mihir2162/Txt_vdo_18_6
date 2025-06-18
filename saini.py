@@ -317,3 +317,34 @@ async def send_vid(bot: Client, m: Message, cc, filename, thumb, name, prog, cha
     await reply.delete(True)
     await reply1.delete(True)
     os.remove(f"{filename}.jpg")
+# Add this new function to handle Classplus DRM
+async def download_classplus_drm(url, token, quality, output_path):
+    """Download and decrypt Classplus DRM videos"""
+    headers = {
+        'x-access-token': token,
+        'user-agent': 'Mobile-Android',
+        'accept-language': 'EN',
+        'api-version': '18'
+    }
+    
+    # Step 1: Get signed URL
+    api_url = f'https://api.classplusapp.com/cams/uploader/video/jw-signed-url?url={url}'
+    response = requests.get(api_url, headers=headers)
+    
+    if response.status_code != 200:
+        raise Exception(f"Failed to get signed URL: {response.text}")
+    
+    signed_url = response.json().get('url')
+    
+    # Step 2: Download with yt-dlp
+    ydl_opts = {
+        'format': f'bestvideo[height<={quality}]+bestaudio/best',
+        'outtmpl': f'{output_path}/%(title)s.%(ext)s',
+        'http_headers': headers
+    }
+    
+    with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+        info_dict = ydl.extract_info(signed_url, download=True)
+        filename = ydl.prepare_filename(info_dict)
+    
+    return filename

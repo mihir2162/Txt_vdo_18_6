@@ -661,7 +661,7 @@ elif "classplusapp.com" in url and "drm" in url:
         filename = await helper.download_classplus_drm(
             url, 
             raw_text4,
-            int(raw_text2),  # Removed extra parenthesis
+            int(raw_text2),
             path,
             name
         )

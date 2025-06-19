@@ -681,7 +681,7 @@ async def txt_handler(bot: Client, m: Message):
                     failed_count += 1
                     continue
 
-        if "acecwply" in url:
+            if "acecwply" in url:
                 cmd = f'yt-dlp -o "{name}.%(ext)s" -f "bestvideo[height<={raw_text2}]+bestaudio" --hls-prefer-ffmpeg --no-keep-video --remux-video mkv --no-warning "{url}"'
 
             elif "https://cpvod.testbook.com/" in url:

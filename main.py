@@ -43,8 +43,6 @@ import aiofiles
 import zipfile
 import shutil
 import ffmpeg
-grep -n -P '\t' main.py
-sed -i 's/\t/    /g' main.py
 
 # Initialize the bot
 bot = Client(

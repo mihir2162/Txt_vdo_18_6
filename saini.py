@@ -317,9 +317,8 @@ async def send_vid(bot: Client, m: Message, cc, filename, thumb, name, prog, cha
     await reply.delete(True)
     await reply1.delete(True)
     os.remove(f"{filename}.jpg")
-# Add this new function to handle Classplus DRM
-async def download_classplus_drm(url, token, quality, output_path):
-    """Download and decrypt Classplus DRM videos"""
+    
+async def download_classplus_drm(url, token, quality, output_path, name):
     headers = {
         'x-access-token': token,
         'user-agent': 'Mobile-Android',

@@ -1,3 +1,8 @@
+import sys
+if sys.version_info[0] == 3 and sys.version_info[1] >= 10:
+    sys.tracebacklimit = 0
+else:
+    sys.tracebacklimit = 10
 import os
 import re
 import sys
@@ -38,6 +43,8 @@ import aiofiles
 import zipfile
 import shutil
 import ffmpeg
+grep -n -P '\t' main.py
+sed -i 's/\t/    /g' main.py
 
 # Initialize the bot
 bot = Client(

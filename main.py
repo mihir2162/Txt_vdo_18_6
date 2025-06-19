@@ -661,15 +661,15 @@ async def txt_handler(bot: Client, m: Message):
                     cc = f'[🔐] DRM Vid Id : {str(count).zfill(3)}\n**Video Title :** `{name1} [{res}p] .mp4`\n<blockquote><b>Batch Name :</b> {b_name}</blockquote>\n\n**Extracted by➤**{CR}\n'
                     Show = f"<i><b>Decrypting Classplus DRM</b></i>\n<blockquote><b>{str(count).zfill(3)}) {name1}</b></blockquote>"
                     prog = await bot.send_message(channel_id, Show, disable_web_page_preview=True)
-                    
-        # Download DRM content
-        filename = await helper.download_classplus_drm(
-            url, 
-            raw_text4,
-            int(raw_text2),
-            path,
-            name
-        )
+           
+                    # Download DRM content
+                    filename = await helper.download_classplus_drm(
+                        url, 
+                        raw_text4,
+                        int(raw_text2),
+                        path,
+                        name
+                    )
         
         await prog.delete(True)
         await helper.send_vid(bot, m, cc, filename, thumb, name, prog, channel_id)

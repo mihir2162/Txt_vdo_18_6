@@ -657,12 +657,13 @@ elif "classplusapp.com" in url and "drm" in url:
         Show = f"<i><b>Decrypting Classplus DRM</b></i>\n<blockquote><b>{str(count).zfill(3)}) {name1}</b></blockquote>"
         prog = await bot.send_message(channel_id, Show, disable_web_page_preview=True)
         
-        # Download DRM content
+        # Download DRM content - FIXED PARENTHESIS
         filename = await helper.download_classplus_drm(
             url, 
             raw_text4,
-            raw_text2,
-            path
+            int(raw_text2),  # Removed extra parenthesis
+            path,
+            name
         )
         
         await prog.delete(True)
@@ -670,12 +671,8 @@ elif "classplusapp.com" in url and "drm" in url:
         count += 1
         time.sleep(1)
         continue
-    except Exception as e:
-        await bot.send_message(channel_id, f'⚠️**Classplus DRM Failed**⚠️\n**Name** =>> `{name}`\n**Url** =>> {url}\n\n<blockquote><i><b>Error: {str(e)}</b></i></blockquote>', disable_web_page_preview=True)
-        count += 1
-        failed_count += 1
-        continue
-            if "acecwply" in url:
+           
+        if "acecwply" in url:
                 cmd = f'yt-dlp -o "{name}.%(ext)s" -f "bestvideo[height<={raw_text2}]+bestaudio" --hls-prefer-ffmpeg --no-keep-video --remux-video mkv --no-warning "{url}"'
 
             elif "https://cpvod.testbook.com/" in url:

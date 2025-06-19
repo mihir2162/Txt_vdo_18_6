@@ -654,8 +654,7 @@ async def txt_handler(bot: Client, m: Message):
                         
             elif "classplusapp.com" in url and "drm" in url:
                 if not raw_text4 or raw_text4 == 'WORKING_TOKEN':
-                    await 
-                bot.send_message(channel_id, f"⚠️**Classplus DRM requires a valid token! Skipping:**\n`{name}`")
+                    await bot.send_message(channel_id, f"⚠️**Classplus DRM requires a valid token! Skipping:**\n`{name}`")
                     continue
                     
                 try:

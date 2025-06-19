@@ -653,15 +653,15 @@ async def txt_handler(bot: Client, m: Message):
                         url = re.search(r"(https://.*?playlist.m3u8.*?)\"", text).group(1)
                         
             elif "classplusapp.com" in url and "drm" in url:
-    if not raw_text4 or raw_text4 == 'WORKING_TOKEN':
-        await bot.send_message(channel_id, f"⚠️**Classplus DRM requires a valid token! Skipping:**\n`{name}`")
-        continue
-        
-    try:
-        cc = f'[🔐] DRM Vid Id : {str(count).zfill(3)}\n**Video Title :** `{name1} [{res}p] .mp4`\n<blockquote><b>Batch Name :</b> {b_name}</blockquote>\n\n**Extracted by➤**{CR}\n'
-        Show = f"<i><b>Decrypting Classplus DRM</b></i>\n<blockquote><b>{str(count).zfill(3)}) {name1}</b></blockquote>"
-        prog = await bot.send_message(channel_id, Show, disable_web_page_preview=True)
-        
+                if not raw_text4 or raw_text4 == 'WORKING_TOKEN':
+                    await bot.send_message(channel_id, f"⚠️**Classplus DRM requires a valid token! Skipping:**\n`{name}`")
+                    continue
+                    
+                try:
+                    cc = f'[🔐] DRM Vid Id : {str(count).zfill(3)}\n**Video Title :** `{name1} [{res}p] .mp4`\n<blockquote><b>Batch Name :</b> {b_name}</blockquote>\n\n**Extracted by➤**{CR}\n'
+                    Show = f"<i><b>Decrypting Classplus DRM</b></i>\n<blockquote><b>{str(count).zfill(3)}) {name1}</b></blockquote>"
+                    prog = await bot.send_message(channel_id, Show, disable_web_page_preview=True)
+                    
         # Download DRM content
         filename = await helper.download_classplus_drm(
             url, 

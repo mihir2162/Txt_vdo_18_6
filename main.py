@@ -670,17 +670,16 @@ async def txt_handler(bot: Client, m: Message):
                         path,
                         name
                     )
-        
-        await prog.delete(True)
-        await helper.send_vid(bot, m, cc, filename, thumb, name, prog, channel_id)
-        count += 1
-        time.sleep(1)
-        continue
-    except Exception as e:
-        await bot.send_message(channel_id, f'⚠️**Classplus DRM Failed**⚠️\n**Name** =>> `{name}`\n**Url** =>> {url}\n\n<blockquote><i><b>Error: {str(e)}</b></i></blockquote>', disable_web_page_preview=True)
-        count += 1
-        failed_count += 1
-        continue
+                    await prog.delete(True)
+                    await helper.send_vid(bot, m, cc, filename, thumb, name, prog, channel_id)
+                    count += 1
+                    time.sleep(1)
+                    continue
+                except Exception as e:
+                    await bot.send_message(channel_id, f'⚠️**Classplus DRM Failed**⚠️\n**Name** =>> `{name}`\n**Url** =>> {url}\n\n<blockquote><i><b>Error: {str(e)}</b></i></blockquote>', disable_web_page_preview=True)
+                    count += 1
+                    failed_count += 1
+                    continue
 
         if "acecwply" in url:
                 cmd = f'yt-dlp -o "{name}.%(ext)s" -f "bestvideo[height<={raw_text2}]+bestaudio" --hls-prefer-ffmpeg --no-keep-video --remux-video mkv --no-warning "{url}"'

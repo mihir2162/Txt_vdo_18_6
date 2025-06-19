@@ -646,7 +646,7 @@ async def txt_handler(bot: Client, m: Message):
                     async with session.get(url, headers={'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9', 'Accept-Language': 'en-US,en;q=0.9', 'Cache-Control': 'no-cache', 'Connection': 'keep-alive', 'Pragma': 'no-cache', 'Referer': 'http://www.visionias.in/', 'Sec-Fetch-Dest': 'iframe', 'Sec-Fetch-Mode': 'navigate', 'Sec-Fetch-Site': 'cross-site', 'Upgrade-Insecure-Requests': '1', 'User-Agent': 'Mozilla/5.0 (Linux; Android 12; RMX2121) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/107.0.0.0 Mobile Safari/537.36', 'sec-ch-ua': '"Chromium";v="107", "Not=A?Brand";v="24"', 'sec-ch-ua-mobile': '?1', 'sec-ch-ua-platform': '"Android"',}) as resp:
                         text = await resp.text()
                         url = re.search(r"(https://.*?playlist.m3u8.*?)\"", text).group(1)
-
+                        
 elif "classplusapp.com" in url and "drm" in url:
     if not raw_text4 or raw_text4 == 'WORKING_TOKEN':
         await bot.send_message(channel_id, f"⚠️**Classplus DRM requires a valid token! Skipping:**\n`{name}`")
@@ -657,7 +657,7 @@ elif "classplusapp.com" in url and "drm" in url:
         Show = f"<i><b>Decrypting Classplus DRM</b></i>\n<blockquote><b>{str(count).zfill(3)}) {name1}</b></blockquote>"
         prog = await bot.send_message(channel_id, Show, disable_web_page_preview=True)
         
-        # Download DRM content - FIXED PARENTHESIS
+        # Download DRM content
         filename = await helper.download_classplus_drm(
             url, 
             raw_text4,
@@ -671,7 +671,12 @@ elif "classplusapp.com" in url and "drm" in url:
         count += 1
         time.sleep(1)
         continue
-           
+    except Exception as e:
+        await bot.send_message(channel_id, f'⚠️**Classplus DRM Failed**⚠️\n**Name** =>> `{name}`\n**Url** =>> {url}\n\n<blockquote><i><b>Error: {str(e)}</b></i></blockquote>', disable_web_page_preview=True)
+        count += 1
+        failed_count += 1
+        continue
+
         if "acecwply" in url:
                 cmd = f'yt-dlp -o "{name}.%(ext)s" -f "bestvideo[height<={raw_text2}]+bestaudio" --hls-prefer-ffmpeg --no-keep-video --remux-video mkv --no-warning "{url}"'
 
